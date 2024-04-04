@@ -48,14 +48,11 @@ body {
     font-size: 18px;
     align-items: center;
     width: 100%;
-    border-bottom: 4px solid var(--botao-ativo);
-    border-left: 2px solid var(--botao-ativo);
-    border-right: 2px solid var(--botao-ativo);
-    border-top: none;
+    
 }
 
 .botao:first-child {
-    border-radius:
+    border-radius: 
 }
 
 .botoes {
@@ -64,7 +61,7 @@ body {
 
 .botao.ativo{
     background-color: var(--botao-ativo);
-    border-bottom: (--verde);
+    border-bottom: 4px solid var(--verde);
 }
 
 .abas-textos{
