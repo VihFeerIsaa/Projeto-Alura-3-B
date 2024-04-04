@@ -55,7 +55,7 @@ body {
 }
 
 .botao:first-child {
-    border-radius: 
+    border-radius: 40px 40px 0 0;
 }
 
 .botoes {
@@ -70,7 +70,7 @@ body {
 .abas-textos{
     background-color: var(--texto-fundo);
     padding: 40px;
-    border-radius: 0 0 40px 40px;
+    border-radius: 
 }
 .aba-conteudo.ativo{
     display:block;
