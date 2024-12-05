@@ -1,29 +1,88 @@
-// Definir a data da formatura
-const formaturaData = new Date("December 20, 2024 20:00:00").getTime();
-
-// Atualizar a contagem regressiva a cada 1 segundo
-const x = setInterval(function() {
-    let now = new Date().getTime();
-    let distance = formaturaData - now;
-
-    // Calcular dias, horas, minutos e segundos restantes
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Exibir o resultado no elemento com o ID "countdown"
-    document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
-    + minutes + "m " + seconds + "s ";
-
-    // Quando a contagem regressiva terminar, exibir uma mensagem
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "A formatura chegou!";
+const questions = [
+    {
+        question: "Qual a capital do Brasil?",
+        answers: [
+            { text: "São Paulo", correct: false },
+            { text: "Rio de Janeiro", correct: false },
+            { text: "Brasília", correct: true },
+            { text: "Salvador", correct: false }
+        ]
+    },
+    {
+        question: "Qual é o maior planeta do Sistema Solar?",
+        answers: [
+            { text: "Terra", correct: false },
+            { text: "Júpiter", correct: true },
+            { text: "Saturno", correct: false },
+            { text: "Marte", correct: false }
+        ]
+    },
+    {
+        question: "Quem foi o primeiro presidente dos Estados Unidos?",
+        answers: [
+            { text: "Abraham Lincoln", correct: false },
+            { text: "George Washington", correct: true },
+            { text: "Thomas Jefferson", correct: false },
+            { text: "John Adams", correct: false }
+        ]
     }
-}, 1000);
+];
 
-// Função para confirmar presença
-function confirmarPresenca() {
-    alert("Obrigado por confirmar sua presença! Nos vemos lá.");
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startGame() {
+    currentQuestionIndex = 0;
+    score = 0;
+    document.getElementById("result-container").classList.add("hidden");
+    document.getElementById("question-container").classList.remove("hidden");
+    showQuestion();
 }
+
+function showQuestion() {
+    const question = questions[currentQuestionIndex];
+    const questionText = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+
+    questionText.textContent = question.question;
+    answerButtons.innerHTML = '';
+
+    question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.textContent = answer.text;
+        button.onclick = () => selectAnswer(answer);
+        answerButtons.appendChild(button);
+    });
+}
+
+function selectAnswer(answer) {
+    if (answer.correct) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    document.getElementById("question-container").classList.add("hidden");
+    document.getElementById("result-container").classList.remove("hidden");
+
+    const resultText = document.getElementById("result-text");
+
+    if (score === questions.length) {
+        resultText.textContent = "Parabéns! Você acertou todas as perguntas!";
+    } else if (score >= questions.length / 2) {
+        resultText.textContent = "Bom trabalho! Você acertou mais da metade!";
+    } else {
+        resultText.textContent = "Tente novamente! Você pode fazer melhor.";
+    }
+}
+
+// Iniciar o jogo quando a página carregar
+window.onload = startGame;
