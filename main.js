@@ -1,74 +1,29 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// Definir a data da formatura
+const formaturaData = new Date("December 20, 2024 20:00:00").getTime();
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-}
+// Atualizar a contagem regressiva a cada 1 segundo
+const x = setInterval(function() {
+    let now = new Date().getTime();
+    let distance = formaturaData - now;
 
-.container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    text-align: center;
-}
+    // Calcular dias, horas, minutos e segundos restantes
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-header h1 {
-    font-size: 36px;
-    color: #4CAF50;
-}
+    // Exibir o resultado no elemento com o ID "countdown"
+    document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
 
-header .nome {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 10px 0;
-}
+    // Quando a contagem regressiva terminar, exibir uma mensagem
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "A formatura chegou!";
+    }
+}, 1000);
 
-header .data {
-    font-size: 18px;
-    color: #777;
-}
-
-.contagem h2 {
-    font-size: 22px;
-    margin-top: 20px;
-}
-
-.countdown {
-    font-size: 48px;
-    font-weight: bold;
-    color: #FF5722;
-    margin: 20px 0;
-}
-
-.mensagem {
-    font-size: 18px;
-    margin: 20px 0;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #45a049;
+// Função para confirmar presença
+function confirmarPresenca() {
+    alert("Obrigado por confirmar sua presença! Nos vemos lá.");
 }
