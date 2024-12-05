@@ -1,58 +1,74 @@
-const botoes = document.querySelectorAll(".botao");
-const textos = document.querySelectorAll(".aba-conteudo");
-
-for (let i = 0; i < botoes.length; i++) {
-    botoes[i].onclick = function () {
-
-        for (let j = 0; j < botoes.length; j++) {
-            botoes[j].classList.remove("ativo");
-            textos[j].classList.remove("ativo");
-        }
-
-        botoes[i].classList.add("ativo");
-        textos[i].classList.add("ativo");
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-const contadores = document.querySelectorAll(".contador");
-const tempoObjetivo1 = new Date("2024-10-05T00:00:00");
-const tempoObjetivo2 = new Date("2024-12-05T00:00:00");
-const tempoObjetivo3 = new Date("2024-12-30T00:00:00");
-const tempoObjetivo4 = new Date("2025-02-01T00:00:00");
-
-const tempos = [tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
-
-
-function calculaTempo(tempoObjetivo) {
-    let tempoAtual = new Date();
-    let tempoFinal = tempoObjetivo - tempoAtual;
-    let segundos = Math.floor(tempoFinal / 1000);
-    let minutos = Math.floor(segundos / 60);
-    let horas = Math.floor(minutos / 60);
-    let dias = Math.floor(horas / 24);
-
-    segundos %= 60;
-    minutos %= 60;
-    horas %= 24;
-    if (tempoFinal > 0){
-        return [dias,horas,minutos,segundos];
-    } else {
-        return [0,0,0,0];
-    }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
-function atualizaCronometro(){
-    for (let i=0; i<contadores.length;i++){
-        document.getElementById("dias"+i).textContent = calculaTempo(tempos[i])[0];
-        document.getElementById("horas"+i).textContent = calculaTempo(tempos[i])[1];
-        document.getElementById("min"+i).textContent = calculaTempo(tempos[i])[2];
-        document.getElementById("seg"+i).textContent = calculaTempo(tempos[i])[3];   
-    }
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
 }
 
-function comecaCronometro(){
-    atualizaCronometro();
-    setInterval(atualizaCronometro,1000);
+header h1 {
+    font-size: 36px;
+    color: #4CAF50;
 }
 
-comecaCronometro();
+header .nome {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+header .data {
+    font-size: 18px;
+    color: #777;
+}
+
+.contagem h2 {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.countdown {
+    font-size: 48px;
+    font-weight: bold;
+    color: #FF5722;
+    margin: 20px 0;
+}
+
+.mensagem {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
